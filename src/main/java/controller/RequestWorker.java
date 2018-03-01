@@ -32,6 +32,5 @@ public class RequestWorker implements AutoCloseable {
         } catch (Exception e) {
             throw new RuntimeException(View.DISCONNECT_ERROR, e);
         }
-
     }
 }
