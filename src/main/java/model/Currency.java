@@ -1,11 +1,17 @@
 package model;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-
+@XStreamAlias("currency")
 public class Currency {
+    @XStreamAlias("r030")
     private int r030;
+    @XStreamAlias("txt")
     private String txt;
+    @XStreamAlias("rate")
     private double rate;
+    @XStreamAlias("cc")
     private String cc;
+    @XStreamAlias("exchangedate")
     private String exchangedate;
 
     public Currency setR030(int r030) {

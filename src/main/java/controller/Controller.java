@@ -19,13 +19,25 @@ public class Controller {
         this.view = view;
     }
 
-    public void currencyState() {
+    public void currencyState(final JsonWorker worker) {
+        view.msg(View.JSON);
         view.msg(View.STARTING);
         view.msg(View.NOW + LocalDateTime.now());
-        final JsonWorker worker = new JsonWorker();
         try {
             document.setRate(worker.collectJson(worker.getJson(new URL(URLs.nationalBankJSON)),
                     new TypeToken<List<Currency>>(){}.getType()));
+            document.getCurrencies("USD", "RUB", "EUR").forEach(System.out::println);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(View.CONNECTION_EXP, e);
+        }
+    }
+
+    public void currencyState(XmlWorker worker) {
+        view.msg(View.XML);
+        view.msg(View.STARTING);
+        view.msg(View.NOW + LocalDateTime.now());
+        try {
+            document.setRate(worker.getXml(new URL(URLs.nationalBankXML)).getCurrencies());
             document.getCurrencies("USD", "RUB", "EUR").forEach(System.out::println);
         } catch (MalformedURLException e) {
             throw new RuntimeException(View.CONNECTION_EXP, e);
